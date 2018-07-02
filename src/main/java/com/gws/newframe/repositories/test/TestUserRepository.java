@@ -11,5 +11,6 @@ import java.util.Optional;
  */
 public interface TestUserRepository extends CrudRepository<TestUser,Long> {
 
-
+    @Override
+    <S extends TestUser> S save(S s);
 }

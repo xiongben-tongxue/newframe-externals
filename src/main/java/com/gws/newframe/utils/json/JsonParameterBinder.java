@@ -66,8 +66,6 @@ public class JsonParameterBinder implements HandlerMethodArgumentResolver {
 	/**
 	 * 将JSON对象转换成指定的用户返回值类型
 	 * 
-	 * @param type
-	 * @param jsonObject
 	 * @return
 	 * @throws JSONException
 	 */
