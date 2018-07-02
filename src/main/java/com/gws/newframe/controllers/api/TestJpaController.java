@@ -1,7 +1,10 @@
 package com.gws.newframe.controllers.api;
 
-import com.gws.newframe.dto.User;
+import com.gws.newframe.controllers.BaseController;
+import com.gws.newframe.controllers.JsonResult;
+import com.gws.newframe.dto.OperationResult;
 import com.gws.newframe.entity.test.TestUser;
+import com.gws.newframe.services.test.TestManageService;
 import com.gws.newframe.services.test.TestService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -13,23 +16,10 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 @RequestMapping("/api/testJpa/")
-public class TestJpaController {
+public class TestJpaController extends BaseController {
 
     @Autowired
-    private TestService testService;
-
-    /**
-     * 接收一个实体类，非数据库表的实体类
-     * @param user
-     * @return
-     */
-    @RequestMapping("saveUser")
-    private TestUser saveUser(User user){
-
-        TestUser result = testService.saveTestUser(user);
-
-        return result;
-    }
+    private TestManageService testManageService;
 
     /**
      * 接收实体类，对应于数据库的表
@@ -37,10 +27,10 @@ public class TestJpaController {
      * @return
      */
     @RequestMapping("saveTestUser")
-    private TestUser saveTestUser(TestUser testUser){
+    private JsonResult saveTestUser(TestUser testUser){
 
-        TestUser result = testService.saveTestUser(testUser);
+        OperationResult<TestUser> result = testManageService.saveTestUser(testUser);
 
-        return result;
+        return success(result);
     }
 }

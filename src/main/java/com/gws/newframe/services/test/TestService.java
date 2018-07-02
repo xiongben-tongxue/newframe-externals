@@ -1,11 +1,10 @@
 package com.gws.newframe.services.test;
 
-import com.gws.newframe.dto.User;
 import com.gws.newframe.entity.test.TestUser;
 
 /**
  * @author:wangdong
- * @description:
+ * @description:原子层的操作
  */
 public interface TestService {
 
@@ -16,10 +15,4 @@ public interface TestService {
      */
     TestUser saveTestUser(TestUser testUser);
 
-    /**
-     * 非实体类的保存操作
-     * @param user
-     * @return
-     */
-    TestUser saveTestUser(User user);
 }

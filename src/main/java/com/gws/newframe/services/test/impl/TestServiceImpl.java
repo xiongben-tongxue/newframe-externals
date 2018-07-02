@@ -1,6 +1,5 @@
 package com.gws.newframe.services.test.impl;
 
-import com.gws.newframe.dto.User;
 import com.gws.newframe.entity.test.TestUser;
 import com.gws.newframe.repositories.test.TestUserRepository;
 import com.gws.newframe.services.test.TestService;
@@ -29,10 +28,5 @@ public class TestServiceImpl implements TestService {
         }
 
         return testUserRepository.save(testUser);
-    }
-
-    @Override
-    public TestUser saveTestUser(User user) {
-        return null;
     }
 }
