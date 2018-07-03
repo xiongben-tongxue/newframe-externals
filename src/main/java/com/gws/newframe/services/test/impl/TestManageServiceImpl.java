@@ -29,16 +29,33 @@ public class TestManageServiceImpl implements TestManageService {
      */
     @Override
     public OperationResult<TestUser> saveTestUser(TestUser testUser) {
-        if (null == testUser){
+        if (null == testUser) {
             return new OperationResult<>(BizErrorCode.PARAM_INFO_ERROR);
         }
         TestUser result = testService.saveTestUser(testUser);
         Optional<TestUser> optionalUser = Optional.ofNullable(testUser);
 
-        if (!optionalUser.isPresent()){
+        if (!optionalUser.isPresent()) {
             return new OperationResult<>(BizErrorCode.SAVE_INFO_ERROR);
         }
 
         return new OperationResult<>(result);
+    }
+
+    /**
+     * 根据Id获取
+     *
+     * @param uid
+     * @return
+     */
+    @Override
+    public OperationResult<TestUser> getTestUser(Long uid) {
+        if (null == uid) {
+            return new OperationResult<>(BizErrorCode.PARAM_INFO_ERROR);
+        }
+
+        Optional<TestUser> testUser = testService.getTestUser(uid);
+
+        return new OperationResult<>(testUser.get());
     }
 }

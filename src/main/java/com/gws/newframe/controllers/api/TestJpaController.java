@@ -7,6 +7,7 @@ import com.gws.newframe.entity.test.TestUser;
 import com.gws.newframe.services.test.TestManageService;
 import com.gws.newframe.services.test.TestService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -30,6 +31,22 @@ public class TestJpaController extends BaseController {
     private JsonResult saveTestUser(TestUser testUser){
 
         OperationResult<TestUser> result = testManageService.saveTestUser(testUser);
+        if (result.getSucc()){
+            return success(result.getEntity());
+        }
+        return error(result.getErrorCode());
+    }
+
+    /**
+     * 根据redis去获取数据
+     * @param uid
+     * @return
+     */
+    @RequestMapping("getTestUser")
+    private JsonResult getTestUser(Long uid){
+
+        OperationResult<TestUser> result = testManageService.getTestUser(uid);
+
         if (result.getSucc()){
             return success(result.getEntity());
         }

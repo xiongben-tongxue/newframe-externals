@@ -6,6 +6,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import java.io.Serializable;
 
 /**
  * @author:wangdong
@@ -14,8 +15,9 @@ import javax.persistence.Table;
 @Data
 @Entity
 @Table(name = "test_user")
-public class TestUser {
+public class TestUser implements Serializable {
 
+    private static final long serialVersionUID = -7934771152804718613L;
     @Id
     @Column(name = "uid")
     private Long uid;

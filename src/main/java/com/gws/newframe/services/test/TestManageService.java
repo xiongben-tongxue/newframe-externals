@@ -16,4 +16,10 @@ public interface TestManageService {
      */
     OperationResult<TestUser> saveTestUser(TestUser testUser);
 
+    /**
+     * 根据Id获取
+     * @param uid
+     * @return
+     */
+    OperationResult<TestUser> getTestUser(Long uid);
 }
