@@ -19,6 +19,10 @@ public class BaseController {
         return new JsonResult(codeStatus, null);
     }
 
+    protected JsonResult error(String code, String message){
+        return new JsonResult(code, message);
+    }
+
     protected JsonResult response(CodeStatus codeStatus, Object data) {
         return new JsonResult(codeStatus, data);
     }

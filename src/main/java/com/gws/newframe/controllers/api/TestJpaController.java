@@ -30,7 +30,9 @@ public class TestJpaController extends BaseController {
     private JsonResult saveTestUser(TestUser testUser){
 
         OperationResult<TestUser> result = testManageService.saveTestUser(testUser);
-
-        return success(result);
+        if (result.getSucc()){
+            return success(result.getEntity());
+        }
+        return error(result.getErrorCode());
     }
 }

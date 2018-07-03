@@ -22,27 +22,17 @@ public class JsonResult {
     }
 
 
+    //正确的用这个
     public JsonResult(CodeStatus codeStatus, Object data) {
         this.code = codeStatus.getCode();
         this.message = codeStatus.getMessage();
         this.data = data;
     }
-    public JsonResult(String code, String message, Object data) {
+
+    //错误的用这个，不需要返回data
+    public JsonResult(String code, String message) {
         this.code = code ;
         this.message =message ;
-        this.data = data;
-    }
-
-    public String getCode() {
-        return code;
-    }
-
-    public String getMessage() {
-        return message;
-    }
-
-    public Object getData() {
-        return data;
     }
 
 }
