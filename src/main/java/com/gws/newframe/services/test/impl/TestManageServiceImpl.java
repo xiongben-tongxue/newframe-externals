@@ -29,16 +29,15 @@ public class TestManageServiceImpl implements TestManageService {
      */
     @Override
     public OperationResult<TestUser> saveTestUser(TestUser testUser) {
-        //这个地方有一些问题
-        Optional<TestUser> optionalUser = Optional.ofNullable(testUser);
-        if (!optionalUser.isPresent()){
+        if (null == testUser){
             return new OperationResult<>(BizErrorCode.PARAM_INFO_ERROR);
         }
         TestUser result = testService.saveTestUser(testUser);
-
-        if (null == result){
+        Optional<TestUser> optionalUser = Optional.ofNullable(testUser);
+        if (!optionalUser.isPresent()){
             return new OperationResult<>(BizErrorCode.SAVE_INFO_ERROR);
         }
+
         return new OperationResult<>(result);
     }
 }
