@@ -27,10 +27,20 @@ public class TestJpaController extends BaseController {
      * @param testUser
      * @return
      */
-    @RequestMapping("saveTestUser")
-    private JsonResult saveTestUser(TestUser testUser){
+    @RequestMapping("saveTestUserByMaster")
+    private JsonResult saveTestUserByMaster(TestUser testUser){
 
-        OperationResult<TestUser> result = testManageService.saveTestUser(testUser);
+        OperationResult<TestUser> result = testManageService.saveTestUserByMaster(testUser);
+        if (result.getSucc()){
+            return success(result.getEntity());
+        }
+        return error(result.getErrorCode());
+    }
+
+    @RequestMapping("saveTestUserBySlave")
+    private JsonResult saveTestUserBySlave(TestUser testUser){
+
+        OperationResult<TestUser> result = testManageService.saveTestUserBySlave(testUser);
         if (result.getSucc()){
             return success(result.getEntity());
         }

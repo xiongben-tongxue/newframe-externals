@@ -8,7 +8,6 @@ import com.gws.newframe.services.test.TestService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.validation.constraints.NotNull;
 import java.util.Optional;
 
 /**
@@ -32,7 +31,7 @@ public class TestManageServiceImpl implements TestManageService {
         if (null == testUser) {
             return new OperationResult<>(BizErrorCode.PARAM_INFO_ERROR);
         }
-        TestUser result = testService.saveTestUser(testUser);
+        TestUser result = testService.saveTestUserByMaster(testUser);
         Optional<TestUser> optionalUser = Optional.ofNullable(testUser);
 
         if (!optionalUser.isPresent()) {
@@ -57,5 +56,35 @@ public class TestManageServiceImpl implements TestManageService {
         Optional<TestUser> testUser = testService.getTestUser(uid);
 
         return new OperationResult<>(testUser.get());
+    }
+
+    @Override
+    public OperationResult<TestUser> saveTestUserByMaster(TestUser testUser) {
+        if (null == testUser) {
+            return new OperationResult<>(BizErrorCode.PARAM_INFO_ERROR);
+        }
+        TestUser result = testService.saveTestUserByMaster(testUser);
+        Optional<TestUser> optionalUser = Optional.ofNullable(testUser);
+
+        if (!optionalUser.isPresent()) {
+            return new OperationResult<>(BizErrorCode.SAVE_INFO_ERROR);
+        }
+
+        return new OperationResult<>(result);
+    }
+
+    @Override
+    public OperationResult<TestUser> saveTestUserBySlave(TestUser testUser) {
+        if (null == testUser) {
+            return new OperationResult<>(BizErrorCode.PARAM_INFO_ERROR);
+        }
+        TestUser result = testService.saveTestUserBySlave(testUser);
+        Optional<TestUser> optionalUser = Optional.ofNullable(testUser);
+
+        if (!optionalUser.isPresent()) {
+            return new OperationResult<>(BizErrorCode.SAVE_INFO_ERROR);
+        }
+
+        return new OperationResult<>(result);
     }
 }

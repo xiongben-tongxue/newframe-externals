@@ -2,7 +2,8 @@ package com.gws.newframe.services.test.impl;
 
 import com.gws.newframe.common.cache.CacheModule;
 import com.gws.newframe.entity.test.TestUser;
-import com.gws.newframe.repositories.test.TestUserRepository;
+import com.gws.newframe.repositories.dataMaster.test.TestUserMaster;
+import com.gws.newframe.repositories.dataSlave.test.TestUserSlave;
 import com.gws.newframe.services.test.TestService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
@@ -18,7 +19,10 @@ import java.util.Optional;
 public class TestServiceImpl implements TestService {
 
     @Autowired
-    private TestUserRepository testUserRepository;
+    private TestUserMaster testUserMaster;
+
+    @Autowired
+    private TestUserSlave testUserSlave;
     /**
      * 保存的操作
      *
@@ -28,12 +32,12 @@ public class TestServiceImpl implements TestService {
     @Cacheable(cacheNames = CacheModule.MIN5,
             key = "T(com.gws.newframe.common.cache.CachePrefix).USER_TESTUSER.concat(T(String).valueOf(#testUser.getUid()))")
     @Override
-    public TestUser saveTestUser(TestUser testUser) {
+    public TestUser saveTestUserByMaster(TestUser testUser) {
         if (null == testUser){
             return null;
         }
 
-        return testUserRepository.save(testUser);
+        return testUserMaster.save(testUser);
     }
 
     /**
@@ -50,6 +54,15 @@ public class TestServiceImpl implements TestService {
             return null;
         }
 
-        return testUserRepository.findById(uid);
+        return testUserMaster.findById(uid);
+    }
+
+    @Override
+    public TestUser saveTestUserBySlave(TestUser testUser) {
+        if (null == testUser){
+            return null;
+        }
+
+        return testUserSlave.save(testUser);
     }
 }

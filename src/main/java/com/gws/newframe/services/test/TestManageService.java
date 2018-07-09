@@ -22,4 +22,8 @@ public interface TestManageService {
      * @return
      */
     OperationResult<TestUser> getTestUser(Long uid);
+
+    OperationResult<TestUser> saveTestUserByMaster(TestUser testUser);
+
+    OperationResult<TestUser> saveTestUserBySlave(TestUser testUser);
 }

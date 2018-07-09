@@ -16,7 +16,7 @@ public interface TestService {
      * @return
      */
 
-    TestUser saveTestUser(TestUser testUser);
+    TestUser saveTestUserByMaster(TestUser testUser);
 
     /**
      * 根据Uid查找
@@ -24,4 +24,6 @@ public interface TestService {
      * @return
      */
     Optional<TestUser> getTestUser(Long uid);
+
+    TestUser saveTestUserBySlave(TestUser testUser);
 }
