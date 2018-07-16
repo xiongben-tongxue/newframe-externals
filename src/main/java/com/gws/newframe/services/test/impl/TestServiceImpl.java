@@ -3,12 +3,19 @@ package com.gws.newframe.services.test.impl;
 import com.gws.newframe.common.cache.CacheModule;
 import com.gws.newframe.entity.test.TestUser;
 import com.gws.newframe.repositories.dataMaster.test.TestUserMaster;
+import com.gws.newframe.repositories.dataQuery.TestUserQuery;
 import com.gws.newframe.repositories.dataSlave.test.TestUserSlave;
 import com.gws.newframe.services.test.TestService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
+import org.springframework.data.domain.Example;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
 
+import java.util.Collections;
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -64,5 +71,24 @@ public class TestServiceImpl implements TestService {
         }
 
         return testUserSlave.save(testUser);
+    }
+
+    /**
+     * 根据条件查询
+     *
+     * @param age
+     * @return
+     */
+    @Override
+    public List<TestUser> listTestUserByAge(Integer age) {
+        if (null == age){
+            return Collections.EMPTY_LIST;
+        }
+
+        TestUserQuery query = new TestUserQuery();
+        query.setAge(age);
+        List<TestUser> testUsers = testUserSlave.findAll(query);
+
+        return CollectionUtils.isEmpty(testUsers) ? Collections.EMPTY_LIST : testUsers;
     }
 }

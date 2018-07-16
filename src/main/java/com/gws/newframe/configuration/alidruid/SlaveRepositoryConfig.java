@@ -1,6 +1,7 @@
 package com.gws.newframe.configuration.alidruid;
 
 import com.gws.newframe.utils.jpa.BaseSimpleJpaRepository;
+import com.gws.newframe.utils.query.BaseRepositoryEx;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.autoconfigure.orm.jpa.HibernateSettings;
@@ -23,7 +24,7 @@ import java.util.Map;
 @Configuration
 @EnableJpaRepositories(entityManagerFactoryRef = "localContainerEntityManagerFactoryBean" ,
         basePackages = "com.gws.newframe.repositories.dataSlave",
-        repositoryBaseClass = BaseSimpleJpaRepository.class)
+        repositoryBaseClass = BaseRepositoryEx.class)
 public class SlaveRepositoryConfig {
 
     @Autowired

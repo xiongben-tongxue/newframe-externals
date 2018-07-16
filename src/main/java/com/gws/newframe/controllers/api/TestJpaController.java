@@ -11,6 +11,8 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+
 /**
  * @author:wangdong
  * @description:测试Jpa和druid是否配置成功的类
@@ -54,4 +56,19 @@ public class TestJpaController extends BaseController {
     }
 
 
+    /**
+     * 根据条件，利用Query进行查询
+     * @param age
+     * @return
+     */
+    @RequestMapping("listTestUserByAge")
+    private JsonResult listTestUserByAge(Integer age){
+
+        OperationResult<List<TestUser>> result = testManageService.listTestUserByAge(age);
+
+        if (result.getSucc()){
+            return success(result.getEntity());
+        }
+        return error(result.getErrorCode());
+    }
 }

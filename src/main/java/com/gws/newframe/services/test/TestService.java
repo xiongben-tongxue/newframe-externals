@@ -2,6 +2,7 @@ package com.gws.newframe.services.test;
 
 import com.gws.newframe.entity.test.TestUser;
 
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -25,5 +26,17 @@ public interface TestService {
      */
     Optional<TestUser> getTestUser(Long uid);
 
+    /**
+     * 操作从库
+     * @param testUser
+     * @return
+     */
     TestUser saveTestUserBySlave(TestUser testUser);
+
+    /**
+     * 根据条件查询
+     * @param age
+     * @return
+     */
+    List<TestUser> listTestUserByAge(Integer age);
 }

@@ -8,11 +8,12 @@ import com.gws.newframe.services.test.TestService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 /**
  * @author:wangdong
- * @description:
+ * @description:外层的Service
  */
 @Service
 public class TestManageServiceImpl implements TestManageService {
@@ -86,5 +87,22 @@ public class TestManageServiceImpl implements TestManageService {
         }
 
         return new OperationResult<>(result);
+    }
+
+    /**
+     * 根据Query查询
+     *
+     * @param age
+     * @return
+     */
+    @Override
+    public OperationResult<List<TestUser>> listTestUserByAge(Integer age) {
+        if (null == age){
+            return new OperationResult<>(BizErrorCode.PARAM_INFO_ERROR);
+        }
+
+        List<TestUser> testUsers = testService.listTestUserByAge(age);
+
+        return new OperationResult<>(testUsers);
     }
 }
