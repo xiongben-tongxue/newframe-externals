@@ -24,6 +24,7 @@ public class TestJpaController extends BaseController {
 
     /**
      * 接收实体类，对应于数据库的表
+     * 通过主库进行数据库操作
      * @param testUser
      * @return
      */
@@ -37,6 +38,11 @@ public class TestJpaController extends BaseController {
         return error(result.getErrorCode());
     }
 
+    /**
+     * 通过从库进行数据库的操作
+     * @param testUser
+     * @return
+     */
     @RequestMapping("saveTestUserBySlave")
     private JsonResult saveTestUserBySlave(TestUser testUser){
 
@@ -47,19 +53,5 @@ public class TestJpaController extends BaseController {
         return error(result.getErrorCode());
     }
 
-    /**
-     * 根据redis去获取数据
-     * @param uid
-     * @return
-     */
-    @RequestMapping("getTestUser")
-    private JsonResult getTestUser(Long uid){
 
-        OperationResult<TestUser> result = testManageService.getTestUser(uid);
-
-        if (result.getSucc()){
-            return success(result.getEntity());
-        }
-        return error(result.getErrorCode());
-    }
 }

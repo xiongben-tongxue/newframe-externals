@@ -1,6 +1,9 @@
 package com.gws.newframe.controllers.api;
 
 import com.gws.newframe.controllers.BaseController;
+import com.gws.newframe.controllers.JsonResult;
+import com.gws.newframe.dto.OperationResult;
+import com.gws.newframe.entity.test.TestUser;
 import com.gws.newframe.services.test.TestManageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,4 +20,20 @@ public class TestRedisController extends BaseController {
     @Autowired
     private TestManageService testManageService;
 
+
+    /**
+     * 根据redis去获取数据
+     * @param uid
+     * @return
+     */
+    @RequestMapping("getTestUser")
+    private JsonResult getTestUser(Long uid){
+
+        OperationResult<TestUser> result = testManageService.getTestUser(uid);
+
+        if (result.getSucc()){
+            return success(result.getEntity());
+        }
+        return error(result.getErrorCode());
+    }
 }
