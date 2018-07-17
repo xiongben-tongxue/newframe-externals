@@ -17,4 +17,7 @@ public class TestUserQuery extends BaseQuery {
 
     @QBindAttrField(fieldName = "age", where = Where.equal)
     private Integer age;
+
+    @QBindAttrField(fieldName = "name", where = Where.equal)
+    private String name;
 }

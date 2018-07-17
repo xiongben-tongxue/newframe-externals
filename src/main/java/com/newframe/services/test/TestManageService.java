@@ -45,4 +45,12 @@ public interface TestManageService {
      * @return
      */
     OperationResult<List<TestUser>> listTestUserByAge(Integer age);
+
+    /**
+     * 多条件，根据Query查询
+     * @param age
+     * @param name
+     * @return
+     */
+    OperationResult<List<TestUser>> listTestUserByAgeAndName(Integer age, String name);
 }

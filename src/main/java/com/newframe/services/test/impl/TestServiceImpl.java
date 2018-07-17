@@ -13,6 +13,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
+import org.springframework.util.StringUtils;
 
 import java.util.Collections;
 import java.util.List;
@@ -89,6 +90,26 @@ public class TestServiceImpl implements TestService {
         query.setAge(age);
         List<TestUser> testUsers = testUserSlave.findAll(query);
 
+        return CollectionUtils.isEmpty(testUsers) ? Collections.EMPTY_LIST : testUsers;
+    }
+
+    /**
+     * 多条件查询
+     *
+     * @param age
+     * @param name
+     * @return
+     */
+    @Override
+    public List<TestUser> listTestUserByAgeAndName(Integer age, String name) {
+
+        if (null == age || StringUtils.isEmpty(name)){
+            return Collections.EMPTY_LIST;
+        }
+        TestUserQuery query = new TestUserQuery();
+        query.setAge(age);
+        query.setName(name);
+        List<TestUser> testUsers = testUserSlave.findAll(query);
         return CollectionUtils.isEmpty(testUsers) ? Collections.EMPTY_LIST : testUsers;
     }
 }

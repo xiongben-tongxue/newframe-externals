@@ -39,4 +39,12 @@ public interface TestService {
      * @return
      */
     List<TestUser> listTestUserByAge(Integer age);
+
+    /**
+     * 多条件查询
+     * @param age
+     * @param name
+     * @return
+     */
+    List<TestUser> listTestUserByAgeAndName(Integer age, String name);
 }

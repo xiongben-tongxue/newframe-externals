@@ -34,6 +34,6 @@ public class TestRedisController extends BaseController {
         if (result.getSucc()){
             return success(result.getEntity());
         }
-        return error(result.getErrorCode());
+        return error(result.getCode(),result.getMessage());
     }
 }

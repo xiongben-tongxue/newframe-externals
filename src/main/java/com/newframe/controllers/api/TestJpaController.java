@@ -37,7 +37,7 @@ public class TestJpaController extends BaseController {
         if (result.getSucc()){
             return success(result.getEntity());
         }
-        return error(result.getErrorCode());
+        return error(result.getCode(),result.getMessage());
     }
 
     /**
@@ -52,12 +52,12 @@ public class TestJpaController extends BaseController {
         if (result.getSucc()){
             return success(result.getEntity());
         }
-        return error(result.getErrorCode());
+        return error(result.getCode(),result.getMessage());
     }
 
 
     /**
-     * 根据条件，利用Query进行查询
+     * 单条件查询，根据条件，利用Query进行查询
      * @param age
      * @return
      */
@@ -69,6 +69,23 @@ public class TestJpaController extends BaseController {
         if (result.getSucc()){
             return success(result.getEntity());
         }
-        return error(result.getErrorCode());
+        return error(result.getCode(),result.getMessage());
+    }
+
+    /**
+     * 根据多条件查询
+     * @param age
+     * @param name
+     * @return
+     */
+    @RequestMapping("listTestUserByAgeAndName")
+    private JsonResult listTestUserByAgeAndName(Integer age, String name){
+
+        OperationResult<List<TestUser>> result = testManageService.listTestUserByAgeAndName(age,name);
+
+        if (result.getSucc()){
+            return success(result.getEntity());
+        }
+        return error(result.getCode(),result.getMessage());
     }
 }

@@ -5,6 +5,7 @@ import com.newframe.entity.test.TestUser;
 import com.newframe.enums.BizErrorCode;
 import com.newframe.services.test.TestManageService;
 import com.newframe.services.test.TestService;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -102,6 +103,25 @@ public class TestManageServiceImpl implements TestManageService {
         }
 
         List<TestUser> testUsers = testService.listTestUserByAge(age);
+
+        return new OperationResult<>(testUsers);
+    }
+
+    /**
+     * 多条件，根据Query查询
+     *
+     * @param age
+     * @param name
+     * @return
+     */
+    @Override
+    public OperationResult<List<TestUser>> listTestUserByAgeAndName(Integer age, String name) {
+
+        if (null == age || StringUtils.isEmpty(name)){
+            return new OperationResult<>(BizErrorCode.PARAM_INFO_ERROR);
+        }
+
+        List<TestUser> testUsers = testService.listTestUserByAgeAndName(age,name);
 
         return new OperationResult<>(testUsers);
     }
