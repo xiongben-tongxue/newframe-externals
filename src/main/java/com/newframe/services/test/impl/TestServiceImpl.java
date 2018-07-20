@@ -8,9 +8,7 @@ import com.newframe.repositories.dataSlave.test.TestUserSlave;
 import com.newframe.services.test.TestService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
-import org.springframework.data.domain.Example;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.*;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
@@ -111,5 +109,27 @@ public class TestServiceImpl implements TestService {
         query.setName(name);
         List<TestUser> testUsers = testUserSlave.findAll(query);
         return CollectionUtils.isEmpty(testUsers) ? Collections.EMPTY_LIST : testUsers;
+    }
+
+    /**
+     * 分页查询
+     *
+     * @param name
+     * @param currentPage
+     * @param pageSize
+     * @return
+     */
+    @Override
+    public Page<TestUser> listTestUser(String name, Integer currentPage, Integer pageSize) {
+
+        if (null == currentPage || null == pageSize){
+            return null;
+        }
+        TestUserQuery query = new TestUserQuery();
+        query.setLikeName(name);
+
+        PageRequest pageable = new PageRequest(currentPage-1,pageSize);
+
+        return testUserSlave.findAll(pageable);
     }
 }

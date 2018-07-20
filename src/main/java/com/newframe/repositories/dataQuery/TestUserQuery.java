@@ -20,4 +20,8 @@ public class TestUserQuery extends BaseQuery {
 
     @QBindAttrField(fieldName = "name", where = Where.equal)
     private String name;
+
+    //模糊查询
+    @QBindAttrField(fieldName = "name", where = Where.like)
+    private String likeName;
 }

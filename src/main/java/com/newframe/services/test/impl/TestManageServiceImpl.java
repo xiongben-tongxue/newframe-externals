@@ -3,10 +3,13 @@ package com.newframe.services.test.impl;
 import com.newframe.dto.OperationResult;
 import com.newframe.entity.test.TestUser;
 import com.newframe.enums.BizErrorCode;
+import com.newframe.repositories.dataQuery.TestUserQuery;
 import com.newframe.services.test.TestManageService;
 import com.newframe.services.test.TestService;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -124,5 +127,25 @@ public class TestManageServiceImpl implements TestManageService {
         List<TestUser> testUsers = testService.listTestUserByAgeAndName(age,name);
 
         return new OperationResult<>(testUsers);
+    }
+
+    /**
+     * 分页查询
+     *
+     * @param name
+     * @param currentPage
+     * @param pageSize
+     * @return
+     */
+    @Override
+    public OperationResult<Page<TestUser>> listTestUser(String name, Integer currentPage, Integer pageSize) {
+
+        if (null == currentPage || null == pageSize){
+            return new OperationResult<>(BizErrorCode.PARAM_INFO_ERROR);
+        }
+
+        Page<TestUser> testUserPage = testService.listTestUser(name,currentPage,pageSize);
+
+        return new OperationResult<>(testUserPage);
     }
 }

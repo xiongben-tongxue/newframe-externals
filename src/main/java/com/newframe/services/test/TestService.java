@@ -1,6 +1,7 @@
 package com.newframe.services.test;
 
 import com.newframe.entity.test.TestUser;
+import org.springframework.data.domain.Page;
 
 import java.util.List;
 import java.util.Optional;
@@ -47,4 +48,13 @@ public interface TestService {
      * @return
      */
     List<TestUser> listTestUserByAgeAndName(Integer age, String name);
+
+    /**
+     * 分页查询
+     * @param name
+     * @param currentPage
+     * @param pageSize
+     * @return
+     */
+    Page<TestUser> listTestUser(String name, Integer currentPage, Integer pageSize);
 }
