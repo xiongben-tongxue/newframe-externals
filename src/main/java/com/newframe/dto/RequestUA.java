@@ -1,7 +1,7 @@
 package com.newframe.dto;
 
 import com.newframe.enums.OsTypeEnum;
-import com.newframe.utils.GwsLogger;
+import com.newframe.utils.log.GwsLogger;
 import org.apache.commons.lang3.StringUtils;
 
 import java.util.regex.Pattern;

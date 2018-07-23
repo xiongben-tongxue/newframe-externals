@@ -1,5 +1,5 @@
 
-package com.newframe.utils;
+package com.newframe.utils.log;
 
 /**
  * gws日志枚举类

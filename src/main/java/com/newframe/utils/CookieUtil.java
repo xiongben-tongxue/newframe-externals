@@ -1,5 +1,6 @@
 package com.newframe.utils;
 
+import com.newframe.utils.log.GwsLogger;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
 

@@ -6,6 +6,7 @@ import com.newframe.repositories.dataMaster.test.TestUserMaster;
 import com.newframe.repositories.dataQuery.TestUserQuery;
 import com.newframe.repositories.dataSlave.test.TestUserSlave;
 import com.newframe.services.test.TestService;
+import com.newframe.utils.cache.IdGlobalGenerator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.*;
@@ -29,18 +30,23 @@ public class TestServiceImpl implements TestService {
 
     @Autowired
     private TestUserSlave testUserSlave;
+
+    @Autowired
+    private IdGlobalGenerator idGlobal;
     /**
      * 保存的操作
      *
      * @param testUser
      * @return
      */
-    @Cacheable(cacheNames = CacheModule.MIN5,
-            key = "T(com.newframe.common.cache.CachePrefix).USER_TESTUSER.concat(T(String).valueOf(#testUser.getUid()))")
     @Override
     public TestUser saveTestUserByMaster(TestUser testUser) {
         if (null == testUser){
             return null;
+        }
+        if (null == testUser.getUid()){
+            //根据redis生成唯一主键
+            testUser.setUid(idGlobal.getSeqId(TestUser.class));
         }
 
         return testUserMaster.save(testUser);

@@ -4,7 +4,7 @@ package com.newframe.interceptor;
 import com.alibaba.fastjson.JSON;
 import com.newframe.controllers.JsonResult;
 import com.newframe.enums.SystemCode;
-import com.newframe.utils.GwsLogger;
+import com.newframe.utils.log.GwsLogger;
 import com.newframe.utils.IPUtil;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;

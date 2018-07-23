@@ -10,6 +10,8 @@ import com.newframe.dto.RequestUser;
 import com.newframe.dto.UserAgent;
 import com.newframe.enums.SystemCode;
 import com.newframe.utils.*;
+import com.newframe.utils.log.GwsLogger;
+import com.newframe.utils.log.GwsLoggerTypeEnum;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;

@@ -1,7 +1,8 @@
 
-package com.newframe.utils;
+package com.newframe.utils.log;
 
 import com.newframe.dto.AccessLog;
+import com.newframe.utils.GlobalConstant;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
