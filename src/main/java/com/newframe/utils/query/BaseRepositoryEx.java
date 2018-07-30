@@ -3,7 +3,6 @@ package com.newframe.utils.query;
 import com.newframe.utils.log.GwsLogger;
 import org.apache.commons.beanutils.PropertyUtils;
 import org.springframework.data.jpa.domain.Specification;
-import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.support.JpaEntityInformation;
 import org.springframework.data.jpa.repository.support.SimpleJpaRepository;
 import org.springframework.data.repository.NoRepositoryBean;
@@ -13,13 +12,12 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.persistence.EntityManager;
 import java.io.Serializable;
 import java.time.LocalDateTime;
-import java.time.ZoneId;
 import java.time.ZoneOffset;
 import java.util.List;
 
 /**
  * @author:wangdong
- * @description:
+ * @description:这个类是专门给对Jpa进行增强
  */
 @Transactional(propagation = Propagation.SUPPORTS)
 @NoRepositoryBean
