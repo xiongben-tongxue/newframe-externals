@@ -324,7 +324,7 @@ create table funding_gathering_schedule
    uid                  bigint not null comment '资金方uid',
    order_id             bigint not null comment '关联订单id',
    renter_id            bigint not null comment '租赁商uid',
-   repay_amount         decimal(30,10) not null comment '应还总金额',
+   repay_amount         decimal(10,2) not null comment '应还总金额',
    last_repay_time      bigint not null comment '最迟还款日期',
    repay_status         int not null comment '还款状态(1：未扣款，2：已扣款，3：已逾期，4：逾期已结清)',
    ctime                bigint not null comment 'ctime',
