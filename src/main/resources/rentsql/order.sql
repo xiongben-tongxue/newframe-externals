@@ -1,9 +1,9 @@
 
 -- ----------------------------
--- Table structure for order_rent_merchant
+-- Table structure for order_rent
 -- 租赁商订单表
 -- ----------------------------
-CREATE TABLE `order_renter_merchant` (
+CREATE TABLE `order_renter` (
   `order_id` bigint NOT NULL COMMENT '订单ID',
   `partner_order_id` bigint NOT NULL COMMENT '订单ID',
   `partner_id` bigint NOT NULL COMMENT '合作方ID,1:52,2:金捷',
@@ -17,6 +17,7 @@ CREATE TABLE `order_renter_merchant` (
   `down_payment` varchar(512) DEFAULT NULL COMMENT '首付金额',
   `accident_benefit` varchar(512) DEFAULT NULL COMMENT '意外保障金额',
   `order_status` varchar(512) DEFAULT NULL COMMENT '订单状态,1:待处理,2:待资金方审核,3:待出租方审核,4:资金方审核不通过,5:出租方审核不通过,6:待发货,7:待收货,8:已确认收货',
+  `delete_status` Boolean DEFAULT NULL COMMENT '订单的存在状态,0:false(正常状态),1:true(删除态)',
   `ctime` int(11) NOT NULL COMMENT '创建时间',
   `utime` int(11) NOT NULL COMMENT '更新时间',
   PRIMARY KEY (`order_id`),
@@ -24,48 +25,94 @@ CREATE TABLE `order_renter_merchant` (
 
 
 -- ----------------------------
--- Table structure for user_identity
+-- Table structure for financing_buy_machine
 -- 融资购机表
 -- ----------------------------
-CREATE TABLE `financing_buy_mobile` (
+CREATE TABLE `financing_buy_machine` (
   `order_id` bigint NOT NULL COMMENT '订单ID',
-  `merchant_id` bigint NOT NULL COMMENT '商家ID',
+  `merchant_id` bigint NOT NULL COMMENT '租赁商家ID',
+  `merchant_name` varchar(30) DEFAULT NULL COMMENT '租赁商家名字',
   `uid` varchar(30) DEFAULT NULL COMMENT '用户ID',
+  `user_real_name` varchar(30) DEFAULT NULL COMMENT '用户真实姓名',
   `user_id_number` varchar(30) DEFAULT NULL COMMENT '用户身份证号码',
   `financing_amount` varchar(50) NOT NULL COMMENT '融资金额',
-  `nationality` tinyint(1) NOT NULL COMMENT '用户国籍：1、中国，2、马来西亚，3、新加坡',
-  `card_type` tinyint(1) NOT NULL COMMENT '证件类型：1、中国身份证，2、外国证件',
-  `card_number` varchar(50) NOT NULL COMMENT '证件号码',
-  `front_photo` varchar(512) DEFAULT NULL COMMENT '正面照，存的是一个url地址',
-  `back_photo` varchar(512) DEFAULT NULL COMMENT '反面照，存的是一个url地址',
-  `hand_photo` varchar(512) DEFAULT NULL COMMENT '手持证件照，存的是一个url地址',
-  `user_video` varchar(512) DEFAULT NULL COMMENT '存的是一个url，用户认证时候的一段录音',
+  `financing_deadline` varchar(50) NOT NULL COMMENT '融资期限',
+  `supply_id` tinyint(1) NOT NULL COMMENT '供应商的ID',
+  `supply_name` tinyint(1) NOT NULL COMMENT '供应商的名字',
+  `financing_times` varchar(50) NOT NULL COMMENT '融资次数',
+  `financing_status` boolean DEFAULT NULL COMMENT '融资购机状态,1:处理中,2:通过,3:拒绝,4:取消',
+  `delete_status` boolean DEFAULT NULL COMMENT '存在状态,0:false(正常状态),1:true(删除态)',
   `ctime` int(11) NOT NULL COMMENT '创建时间',
   `utime` int(11) NOT NULL COMMENT '更新时间',
-  PRIMARY KEY (`uid`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='用户身份信息表';
+  PRIMARY KEY (`order_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='融资购机表';
 
 -- ----------------------------
--- Table structure for user_pwd
--- 用户的密码表
+-- Table structure for rent_machine
+-- 租机表
 -- ----------------------------
-CREATE TABLE `user_pwd` (
-  `uid` bigint NOT NULL COMMENT '用户ID',
-  `login_pwd` varchar(50) NOT NULL COMMENT '登陆密码',
-  `pay_pwd` varchar(50) NOT NULL COMMENT '支付密码',
+CREATE TABLE `rent_machine` (
+  `order_id` bigint NOT NULL COMMENT '订单ID',
+  `merchant_id` bigint NOT NULL COMMENT '租赁商家ID',
+  `merchant_name` varchar(30) DEFAULT NULL COMMENT '租赁商家名字',
+  `uid` varchar(30) DEFAULT NULL COMMENT '用户ID',
+  `user_real_name` varchar(30) DEFAULT NULL COMMENT '用户真实姓名',
+  `user_id_number` varchar(30) DEFAULT NULL COMMENT '用户身份证号码',
+  `monthly_payment` decimal(10,2) NOT NULL COMMENT '月租金金额(月还款数)',
+  `number_of_payments` varchar(512) DEFAULT NULL COMMENT '还贷月数(租期)',
+  `down_payment` varchar(512) DEFAULT NULL COMMENT '首付金额',
+  `accident_benefit` varchar(512) DEFAULT NULL COMMENT '意外保障金额',
+  `mode_of_payment` varchar(50) NOT NULL COMMENT '支付方式,1:全款支付,2:分期支付',
+  `rent_times` varchar(50) NOT NULL COMMENT '租机次数',
+  `rent_status` boolean DEFAULT NULL COMMENT '租机状态,1:处理中,2:通过,3:拒绝,4:取消',
+  `delete_status` boolean DEFAULT NULL COMMENT '存在状态,0:false(正常状态),1:true(删除态)',
   `ctime` int(11) NOT NULL COMMENT '创建时间',
   `utime` int(11) NOT NULL COMMENT '更新时间',
-  PRIMARY KEY (`uid`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='用户密码表';
-
+  PRIMARY KEY (`order_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='租机表';
 
 -- ----------------------------
--- Table structure for user_app_token
--- 用户的APPToken表
+-- Table structure for order_funder
+-- 资金方订单表
 -- ----------------------------
-CREATE TABLE `user_app_token` (
-  `uid` bigint NOT NULL COMMENT '用户id',
-  `token` varchar(50) DEFAULT NULL COMMENT 'app用户Token',
+CREATE TABLE `order_funder` (
+  `order_id` bigint NOT NULL COMMENT '订单ID',
+  `partner_order_id` bigint NOT NULL COMMENT '订单ID',
+  `partner_id` bigint NOT NULL COMMENT '合作方ID,1:52,2:金捷',
+  `merchant_id` bigint NOT NULL COMMENT '商家ID',
+  `merchant_name` varchar(30) DEFAULT NULL COMMENT '商家名字',
+  `uid` varchar(30) DEFAULT NULL COMMENT '用户ID',
+  `rent_user_info` varchar(256) DEFAULT NULL COMMENT '租客信息',
+  `rent_product_info` varchar(256) DEFAULT NULL COMMENT '产品信息',
+  `monthly_payment` decimal(10,2) NOT NULL COMMENT '月租金金额(月还款数)',
+  `number_of_payments` varchar(512) DEFAULT NULL COMMENT '还贷月数(租期)',
+  `down_payment` varchar(512) DEFAULT NULL COMMENT '首付金额',
+  `accident_benefit` varchar(512) DEFAULT NULL COMMENT '意外保障金额',
+  `order_status` varchar(512) DEFAULT NULL COMMENT '订单状态,1:待处理,2:审核不通过,3:放款中待供应商确认,4:待收货,5:还款中,6:坏账,7:已完成,8:取消',
+  `delete_status` Boolean DEFAULT NULL COMMENT '订单的存在状态,0:false(正常状态),1:true(删除态)',
+  `ctime` int(11) NOT NULL COMMENT '创建时间',
+  `utime` int(11) NOT NULL COMMENT '更新时间',
+  PRIMARY KEY (`order_id`),
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='租赁商订单表';
+
+-- ----------------------------
+-- Table structure for funder_
+-- 融资购机或者租机派单表
+-- ----------------------------
+CREATE TABLE `order_dispatch` (
+  `order_id` bigint NOT NULL COMMENT '订单ID',
+  `merchant_id` bigint NOT NULL COMMENT '租赁商家ID',
+  `merchant_name` varchar(30) DEFAULT NULL COMMENT '租赁商家名字',
+  `dispatch_type` varchar(30) DEFAULT NULL COMMENT '融资购机或者租机,1:融资购机,2:租机',
+  `acceptor_id` bigint NOT NULL COMMENT '派单接受方ID',
+  `acceptor_name` bigint NOT NULL COMMENT '派单接受方的名字',
+  `uid` varchar(30) DEFAULT NULL COMMENT '用户ID',
+  `user_real_name` varchar(30) DEFAULT NULL COMMENT '用户真实姓名',
+  `user_id_number` varchar(30) DEFAULT NULL COMMENT '用户身份证号码',
+  `financing_amount` varchar(50) NOT NULL COMMENT '融资金额',
+  `financing_deadline` varchar(50) NOT NULL COMMENT '融资期限',
+  `financing_times` varchar(50) NOT NULL COMMENT '次数',
+  `financing_status` boolean DEFAULT NULL COMMENT '融资购机状态,1:处理中,2:通过,3:拒绝,4:取消',
   `ctime` int NOT NULL COMMENT '创建时间',
   `utime` int NOT NULL COMMENT '更新时间',
   PRIMARY KEY (`uid`)
