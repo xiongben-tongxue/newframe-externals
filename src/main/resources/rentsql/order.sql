@@ -1,28 +1,33 @@
 
 -- ----------------------------
--- Table structure for 订单数据库sql
+-- Table structure for order_rent_merchant
 -- 租赁商订单表
 -- ----------------------------
-CREATE TABLE `order_rent_merchant` (
-  `order_id` bigint NOT NULL COMMENT '用户ID',
-  `uid` bigint NOT NULL COMMENT '用户ID',
-  `merchant_name` varchar(256) DEFAULT NULL COMMENT '商家名字',
-  `user_name` varchar(30) DEFAULT NULL COMMENT '用户昵称',
-  `gender` tinyint(1) DEFAULT 1 COMMENT '性别(1-男,2-女)',
-  `phone_number` varchar(512) DEFAULT NULL COMMENT '电话号码',
-  `email_address` varchar(512) DEFAULT NULL COMMENT '邮件地址',
-  `user_status` tinyint(1) NOT NULL COMMENT '用户状态(0-正常,1-冻结)',
+CREATE TABLE `order_renter_merchant` (
+  `order_id` bigint NOT NULL COMMENT '订单ID',
+  `partner_order_id` bigint NOT NULL COMMENT '订单ID',
+  `partner_id` bigint NOT NULL COMMENT '合作方ID,1:52,2:金捷',
+  `merchant_id` bigint NOT NULL COMMENT '商家ID',
+  `merchant_name` varchar(30) DEFAULT NULL COMMENT '商家名字',
+  `uid` varchar(30) DEFAULT NULL COMMENT '用户ID',
+  `rent_user_info` varchar(256) DEFAULT NULL COMMENT '租客信息',
+  `rent_product_info` varchar(256) DEFAULT NULL COMMENT '产品信息',
+  `monthly_payment` decimal(10,2) NOT NULL COMMENT '月租金金额(月还款数)',
+  `number_of_payments` varchar(512) DEFAULT NULL COMMENT '还贷月数(租期)',
+  `down_payment` varchar(512) DEFAULT NULL COMMENT '首付金额',
+  `accident_benefit` varchar(512) DEFAULT NULL COMMENT '意外保障金额',
+  `order_status` varchar(512) DEFAULT NULL COMMENT '订单状态,1:待处理,2:待资金方审核,3:待出租方审核,4:资金方审核不通过,5:出租方审核不通过,6:待发货,7:待收货,8:已确认收货',
   `ctime` int(11) NOT NULL COMMENT '创建时间',
   `utime` int(11) NOT NULL COMMENT '更新时间',
   PRIMARY KEY (`order_id`),
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='用户基本资料信息表';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='租赁商订单表';
 
 
 -- ----------------------------
 -- Table structure for user_identity
 -- 用户认证表
 -- ----------------------------
-CREATE TABLE `user_identity` (
+CREATE TABLE `financing_buy_mobile` (
   `uid` bigint NOT NULL COMMENT '用户ID',
   `real_name` varchar(50) NOT NULL COMMENT '用户实名',
   `nationality` tinyint(1) NOT NULL COMMENT '用户国籍：1、中国，2、马来西亚，3、新加坡',
