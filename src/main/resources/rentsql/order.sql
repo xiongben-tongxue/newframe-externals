@@ -25,11 +25,14 @@ CREATE TABLE `order_renter_merchant` (
 
 -- ----------------------------
 -- Table structure for user_identity
--- 用户认证表
+-- 融资购机表
 -- ----------------------------
 CREATE TABLE `financing_buy_mobile` (
-  `uid` bigint NOT NULL COMMENT '用户ID',
-  `real_name` varchar(50) NOT NULL COMMENT '用户实名',
+  `order_id` bigint NOT NULL COMMENT '订单ID',
+  `merchant_id` bigint NOT NULL COMMENT '商家ID',
+  `uid` varchar(30) DEFAULT NULL COMMENT '用户ID',
+  `user_id_number` varchar(30) DEFAULT NULL COMMENT '用户身份证号码',
+  `financing_amount` varchar(50) NOT NULL COMMENT '融资金额',
   `nationality` tinyint(1) NOT NULL COMMENT '用户国籍：1、中国，2、马来西亚，3、新加坡',
   `card_type` tinyint(1) NOT NULL COMMENT '证件类型：1、中国身份证，2、外国证件',
   `card_number` varchar(50) NOT NULL COMMENT '证件号码',
