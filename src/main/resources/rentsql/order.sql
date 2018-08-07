@@ -25,7 +25,7 @@ CREATE TABLE `order_renter` (
   `delete_status` boolean NOT NULL COMMENT '订单的存在状态,0:false(正常状态),1:true(删除态)',
   `ctime` int(11) NOT NULL COMMENT '创建时间',
   `utime` int(11) NOT NULL COMMENT '更新时间',
-  PRIMARY KEY (`order_id`),
+  PRIMARY KEY (`order_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='租赁商订单表';
 
 
@@ -49,7 +49,7 @@ CREATE TABLE `financing_buy_machine` (
   `supply_name` tinyint(1) NOT NULL COMMENT '供应商的名字',
   `dispatch_times` tinyint(1) NOT NULL COMMENT '派单次数',
   `financing_status` tinyint(1) NOT NULL COMMENT '融资购机状态,1:处理中,2:通过,3:拒绝,4:取消',
-  `delete_status` boolean DEFAULT NULL COMMENT '存在状态,0:false(正常状态),1:true(删除态)',
+  `delete_status` boolean NOT NULL COMMENT '存在状态,0:false(正常状态),1:true(删除态)',
   `ctime` int(11) NOT NULL COMMENT '创建时间',
   `utime` int(11) NOT NULL COMMENT '更新时间',
   PRIMARY KEY (`order_id`)
@@ -76,7 +76,7 @@ CREATE TABLE `rent_machine` (
   `dispatch_times` tinyint(1) NOT NULL COMMENT '派单次数,最多三次',
   `mode_of_payment` tinyint(1) NOT NULL COMMENT '支付方式,1:全额支付,2:分期支付',
   `rent_status` tinyint(1) NOT NULL COMMENT '租机状态,1:处理中,2:通过,3:拒绝,4:取消',
-  `delete_status` boolean DEFAULT NULL COMMENT '存在状态,0:false(正常状态),1:true(删除态)',
+  `delete_status` boolean NOT NULL COMMENT '存在状态,0:false(正常状态),1:true(删除态)',
   `ctime` int(11) NOT NULL COMMENT '创建时间',
   `utime` int(11) NOT NULL COMMENT '更新时间',
   PRIMARY KEY (`order_id`)
@@ -110,8 +110,8 @@ CREATE TABLE `order_funder` (
   `delete_status` boolean NOT NULL COMMENT '订单的存在状态,0:false(正常状态),1:true(删除态)',
   `ctime` int(11) NOT NULL COMMENT '创建时间',
   `utime` int(11) NOT NULL COMMENT '更新时间',
-  PRIMARY KEY (`order_id`),
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='供应商订单表';
+  PRIMARY KEY (`order_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='资金方订单表';
 
 -- ----------------------------
 -- Table structure for order_hirer
@@ -141,7 +141,7 @@ CREATE TABLE `order_hirer` (
   `delete_status` boolean NOT NULL COMMENT '订单的存在状态,0:false(正常状态),1:true(删除态)',
   `ctime` int(11) NOT NULL COMMENT '创建时间',
   `utime` int(11) NOT NULL COMMENT '更新时间',
-  PRIMARY KEY (`order_id`),
+  PRIMARY KEY (`order_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='出租方订单表';
 
 -- ----------------------------
@@ -153,23 +153,23 @@ CREATE TABLE `order_supplier` (
   `partner_order_id` varchar(256)  NOT NULL COMMENT '订单ID',
   `partner_id` bigint NOT NULL COMMENT '合作方ID,1:52,2:金捷',
   `merchant_id` bigint NOT NULL COMMENT '商家ID',
-  `merchant_name` varchar(256) DEFAULT NULL COMMENT '商家名字',
+  `merchant_name` varchar(256) NOT NULL  COMMENT '商家名字',
   `uid` bigint DEFAULT NULL COMMENT '用户ID',
-  `receiver_name` varchar(256) DEFAULT NULL COMMENT '收货人姓名',
-  `receiver_mobile` varchar(256) DEFAULT NULL COMMENT '用户手机号',
-  `receiver_address` varchar(256) DEFAULT NULL COMMENT '快递地址',
+  `receiver_name` varchar(256) NOT NULL COMMENT '收货人姓名',
+  `receiver_mobile` varchar(256) NOT NULL COMMENT '用户手机号',
+  `receiver_address` varchar(256) NOT NULL COMMENT '快递地址',
   `product_brand` varchar(256) NOT NULL COMMENT '产品品牌',
   `product_name` varchar(256) NOT NULL COMMENT '产品名字',
   `product_color` varchar(256) NOT NULL COMMENT '产品颜色',
   `product_storage` int NOT NULL COMMENT '产品内存GB',
-  `express_company` varchar(256) DEFAULT NULL COMMENT '快递公司',
-  `express_number` varchar(256) DEFAULT NULL COMMENT '快递单号',
-  `express_tracking` varchar(256) DEFAULT NULL COMMENT '物流跟踪',
-  `order_status` varchar(512) DEFAULT NULL COMMENT '订单状态,1:未发货,2:已发货,3:已确认收货',
-  `delete_status` boolean DEFAULT NULL COMMENT '订单的存在状态,0:false(正常状态),1:true(删除态)',
+  `express_company` varchar(256) NOT NULL COMMENT '快递公司',
+  `express_number` varchar(256) NOT NULL COMMENT '快递单号',
+  `express_tracking` varchar(256) NOT NULL COMMENT '物流跟踪',
+  `order_status` tinyint(1)  NOT NULL COMMENT '订单状态,1:未发货,2:已发货,3:已确认收货',
+  `delete_status` boolean NOT NULL COMMENT '订单的存在状态,0:false(正常状态),1:true(删除态)',
   `ctime` int(11) NOT NULL COMMENT '创建时间',
   `utime` int(11) NOT NULL COMMENT '更新时间',
-  PRIMARY KEY (`order_id`),
+  PRIMARY KEY (`order_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='供应商订单表';
 
 -- ----------------------------
@@ -180,13 +180,13 @@ CREATE TABLE `order_express` (
   `express_number` bigint NOT NULL COMMENT '快递单号',
   `order_id` bigint NOT NULL COMMENT '订单ID',
   `partner_order_id` bigint NOT NULL COMMENT '合作方的订单ID',
-  `express_company` varchar(256) DEFAULT NULL COMMENT '快递公司',
-  `express_tracking` varchar(256) DEFAULT NULL COMMENT '物流跟踪',
-  `order_status` varchar(512) DEFAULT NULL COMMENT '订单状态,1:未发货,2:已发货,3:已确认收货',
-  `express_status` boolean DEFAULT NULL COMMENT '运单号的存在状态,0:false(正常状态),1:true(删除态)',
+  `express_company` varchar(256) NOT NULL COMMENT '快递公司',
+  `express_tracking` varchar(256) NOT NULL COMMENT '物流跟踪',
+  `order_status` tinyint(1) NOT NULL COMMENT '订单状态,1:未发货,2:已发货,3:已确认收货',
+  `express_status` boolean NOT NULL COMMENT '运单号的存在状态,0:false(正常状态),1:true(删除态)',
   `ctime` int(11) NOT NULL COMMENT '创建时间',
   `utime` int(11) NOT NULL COMMENT '更新时间',
-  PRIMARY KEY (`express_number`),
+  PRIMARY KEY (`express_number`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='物流信息实时更新表';
 
 
