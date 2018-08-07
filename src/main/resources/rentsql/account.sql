@@ -129,7 +129,7 @@ alter table account_funding_overdue_asset comment '资金方逾期资产';
 /*==============================================================*/
 create table account_lessor
 (
-   uid                   bigint not null comment 'uid',
+   uid                  bigint not null comment 'uid',
    useable_amount       decimal(10,2) not null comment '可用金额',
    total_assets         decimal(10,2) not null comment '资产总额',
    frozen_assets        decimal(10,2) not null comment '冻结资产',
