@@ -134,7 +134,7 @@ public class TestServiceImpl implements TestService {
         TestUserQuery query = new TestUserQuery();
         query.setLikeName(name);
 
-        PageRequest pageable = new PageRequest(currentPage-1,pageSize);
+        PageRequest pageable = PageRequest.of(currentPage - 1,pageSize);
 
         return testUserSlave.findAll(pageable);
     }
