@@ -1,6 +1,5 @@
 package com.newframe.configuration.alidruid;
 
-import com.newframe.utils.jpa.BaseSimpleJpaRepository;
 import com.newframe.utils.query.BaseRepositoryEx;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -9,7 +8,6 @@ import org.springframework.boot.autoconfigure.orm.jpa.JpaProperties;
 import org.springframework.boot.orm.jpa.EntityManagerFactoryBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Primary;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 
@@ -22,7 +20,7 @@ import java.util.Map;
  * @description:主库的配置
  */
 @Configuration
-@EnableJpaRepositories(entityManagerFactoryRef = "localContainerEntityManagerFactoryBean" ,
+@EnableJpaRepositories(entityManagerFactoryRef = "entityManagerFactorySlave" ,
         basePackages = "com.newframe.repositories.dataSlave",
         repositoryBaseClass = BaseRepositoryEx.class)
 public class SlaveRepositoryConfig {
@@ -34,19 +32,17 @@ public class SlaveRepositoryConfig {
     @Autowired
     private JpaProperties jpaProperties;
 
-    @Primary
-    @Bean("entityManager")
+    @Bean("entityManagerSecondary")
     public EntityManager entityManager(EntityManagerFactoryBuilder builder){
-        return localContainerEntityManagerFactoryBean(builder).getObject().createEntityManager();
+        return entityManagerFactorySlave(builder).getObject().createEntityManager();
     }
 
-    @Primary
-    @Bean("localContainerEntityManagerFactoryBean")
-    public LocalContainerEntityManagerFactoryBean localContainerEntityManagerFactoryBean(EntityManagerFactoryBuilder entityManagerFactoryBuilder){
+    @Bean("entityManagerFactorySlave")
+    public LocalContainerEntityManagerFactoryBean entityManagerFactorySlave(EntityManagerFactoryBuilder entityManagerFactoryBuilder){
         return entityManagerFactoryBuilder.dataSource(slaveDS)
                 .properties(getProperties())
                 .packages("com.newframe.entity")
-                .persistenceUnit("primaryPersistenceUnit")
+                .persistenceUnit("secondaryPersistenceUnit")
                 .build();
     }
 

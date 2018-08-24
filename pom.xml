@@ -37,12 +37,12 @@
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter</artifactId>
-			<exclusions>
+			<!--<exclusions>
 				<exclusion>
 					<groupId>org.springframework.boot</groupId>
 					<artifactId>spring-boot-starter-logging</artifactId>
 				</exclusion>
-			</exclusions>
+			</exclusions>-->
 		</dependency>
 
 		<dependency>
@@ -106,11 +106,11 @@
 		</dependency>
 
 		<!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-log4j2 -->
-		<dependency>
+		<!--<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-log4j2</artifactId>
 			<version>2.0.3.RELEASE</version>
-		</dependency>
+		</dependency>-->
 
 		<!-- https://mvnrepository.com/artifact/com.aliyun/aliyun-java-sdk-cdn -->
 		<dependency>
@@ -133,6 +133,7 @@
 			<version>1.9.3</version>
 		</dependency>
 
+		<!-- RocketMQ止-->
 		<!--在pom.xml中添加依赖-->
 		<dependency>
 			<groupId>org.apache.rocketmq</groupId>
@@ -167,7 +168,6 @@
 			<version>2.9.6</version>
 		</dependency>
 
-		<!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-configuration-processor -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-configuration-processor</artifactId>
