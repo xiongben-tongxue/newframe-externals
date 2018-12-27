@@ -112,4 +112,14 @@ public class TestJpaController extends BaseController {
 
         return error(result.getCode(),result.getMessage());
     }
+
+
+    @RequestMapping("setPasswordByOldPwd")
+    public JsonResult setPasswordByOldPwd(String mobile, Long uid, Integer role) {
+
+        if (null == mobile || null == uid || null == role){
+
+        }
+        return null;
+    }
 }
